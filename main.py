@@ -19,7 +19,7 @@ def get_connection():
 def inicio():
     return jsonify({
         "mensaje": "Aplicación desplegada correctamente en Google Cloud",
-        "estado": "funcionando",
+        "estado": "funcionando mediante CI/CD",
         "servicio": "Cloud Run"
     })
 
