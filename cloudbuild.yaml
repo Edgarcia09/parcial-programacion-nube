@@ -1,0 +1,28 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/parcial2-505113/parcial-repo/parcial-app:$COMMIT_SHA'
+      - '.'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'us-central1-docker.pkg.dev/parcial2-505113/parcial-repo/parcial-app:$COMMIT_SHA'
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'parcial-app'
+      - '--image'
+      - 'us-central1-docker.pkg.dev/parcial2-505113/parcial-repo/parcial-app:$COMMIT_SHA'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+
+images:
+  - 'us-central1-docker.pkg.dev/parcial2-505113/parcial-repo/parcial-app:$COMMIT_SHA'
